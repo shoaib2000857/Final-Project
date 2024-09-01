@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Welcome to the Task Management App</h1>
+    <p>This is the homepage of your application.</p>
+    {% if current_user.is_authenticated %}
+        <p>Welcome, {{ current_user.username }}!</p>
+        <a class="btn btn-primary" href="{{ url_for('tasks') }}">Go to your tasks</a>
+        <a class="btn btn-primary" href="{{ url_for('timetable') }}">Go to your timetable</a>
+    {% else %}
+        <a class="btn btn-secondary" href="{{ url_for('login') }}">Login</a>
+        <a class="btn btn-secondary" href="{{ url_for('signup') }}">Sign Up</a>
+    {% endif %}
+{% endblock %}

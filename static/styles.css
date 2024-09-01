@@ -1,0 +1,123 @@
+body.bg-purple {
+    background-color: #6a1b9a;
+    color: #f8f9fa;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: #f8f9fa;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: #e91e63;
+}
+
+.container {
+    margin-top: 20px;
+}
+
+h1, h2 {
+    margin-bottom: 20px;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+.list-group-item {
+    background-color: #8e24aa;
+    color: #f8f9fa;
+}
+
+.list-group-item:hover {
+    background-color: #ab47bc;
+}
+
+.btn-primary {
+    background-color: #fc0093;
+    border-color: #2d00f8;
+}
+
+.btn-primary:hover {
+    background-color: #fc008b;
+    border-color: #2d00f8;
+}
+
+.btn-secondary {
+    background-color: #e91e63;
+    border-color:  #2d00f8;
+}
+
+.btn-secondary:hover {
+    background-color: #f06292;
+    border-color:  #2d00f8;
+}
+
+
+.btn-danger {
+    background-color: #d9534f;
+    border-color: #d43f3a;
+}
+
+.btn-danger:hover {
+    background-color: #c9302c;
+    border-color: #ac2925;
+}
+
+.form-check-lg {
+    width: 1.5em;
+    height: 1.5em;
+}
+.form-check-lg {
+    width: 1.5em;
+    height: 1.5em;
+}
+
+.checkboxlargesmallmarg {
+    margin-left: 0.5rem;
+}
+
+.checkboxlargewidemarg {
+    margin: 1rem;
+}
+
+
+.checkbox-custom {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 1.5em;
+    height: 1.5em;
+    background-color: purple;
+    border: 2px solid #d43f3a;
+    border-radius: 0.25em;
+    cursor: pointer;
+    position: relative;
+}
+
+.checkbox-custom:checked {
+    background-color: #d43f3a;
+}
+
+.checkbox-custom:checked::before {
+    content: '✔';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: purple;
+    color: black;
+    font-size: 1.2em;
+}
