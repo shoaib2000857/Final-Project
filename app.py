@@ -31,6 +31,7 @@ def create_app():
             user.set_password(form.password.data)
             db.session.add(user)
             db.session.commit()
+            flash('Congratulations, you are now a registered user!')
             return redirect(url_for('login'))
         return render_template('signup.html', form=form)
 
@@ -42,6 +43,8 @@ def create_app():
             if user and user.check_password(form.password.data):
                 login_user(user)
                 return redirect(url_for('index'))
+            else:
+                flash('Invalid username or password')
         return render_template('login.html', form=form)
 
     @app.route('/logout')
@@ -117,7 +120,6 @@ def create_app():
     def add_timetable_entry():
         form = TimetableEntryForm()
         if form.validate_on_submit():
-            print("Form validated successfully")  # Debug statement
             entry = TimetableEntry(
                 title=form.title.data,
                 description=form.description.data,
@@ -128,9 +130,6 @@ def create_app():
             db.session.commit()
             flash('Timetable entry added successfully!', 'success')
             return redirect(url_for('timetable'))
-        else:
-            print("Form validation failed")  # Debug statement
-            print(form.errors)  # Debug statement to print form errors
         return render_template('add_timetable_entry.html', form=form)
     
     @app.route('/timetable/edit/<int:entry_id>', methods=['GET', 'POST'])
