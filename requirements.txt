@@ -3,3 +3,7 @@ Flask-SQLAlchemy
 Flask-Login
 Flask-WTF
 Werkzeug
+Flask-Migrate
+gunicorn
+psycopg2-binary
+python-dotenv
