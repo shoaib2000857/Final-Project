@@ -1,10 +1,10 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, DateField, TimeField, SelectField, BooleanField, TextAreaField, DateTimeField
-from wtforms.validators import DataRequired, EqualTo, ValidationError, DataRequired, Optional
+from wtforms.validators import DataRequired, EqualTo, ValidationError, DataRequired, Optional, Length
 from models import User
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired(), Length(min=2, max=20)])
     submit = SubmitField('Login')
 
 class TaskForm(FlaskForm):
@@ -17,8 +17,8 @@ class TaskForm(FlaskForm):
 
 class SignupForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
+    password = PasswordField('Password', validators=[DataRequired(), Length(min=2, max=20)])
+    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password'), Length(min=2, max=20)])
     submit = SubmitField('Sign Up')
 
     def validate_username(self, username):
@@ -32,3 +32,10 @@ class TimetableEntryForm(FlaskForm):
     start_time = TimeField('Start Time', format='%H:%M', validators=[DataRequired()])
     end_time = TimeField('End Time', format='%H:%M', validators=[DataRequired()])
     submit = SubmitField('Save')
+
+class ProfileForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
+    password = PasswordField('New Password', validators=[Length(min=6, max=20)])
+    confirm_password = PasswordField('Confirm Password', validators=[EqualTo('password')])
+    submit = SubmitField('Update Profile')
+

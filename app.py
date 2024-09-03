@@ -2,7 +2,7 @@ from flask import Flask, render_template, redirect, url_for, request, jsonify, f
 from flask_wtf import CSRFProtect
 from extensions import db, login_manager
 from flask_login import UserMixin, login_user, login_required, logout_user, current_user
-from forms import LoginForm, TaskForm, SignupForm, TimetableEntryForm
+from forms import LoginForm, TaskForm, SignupForm, TimetableEntryForm, ProfileForm
 from models import User, Task, TimetableEntry
 from flask_migrate import Migrate
 
@@ -31,7 +31,7 @@ def create_app():
             user.set_password(form.password.data)
             db.session.add(user)
             db.session.commit()
-            flash('Congratulations, you are now a registered user!')
+            flash('Congratulations, you are now a registered user!', 'success')
             return redirect(url_for('login'))
         return render_template('signup.html', form=form)
 
@@ -42,16 +42,31 @@ def create_app():
             user = User.query.filter_by(username=form.username.data).first()
             if user and user.check_password(form.password.data):
                 login_user(user)
+                flash('Login successful!', 'success')
                 return redirect(url_for('index'))
             else:
-                flash('Invalid username or password')
+                flash('Invalid username or password', 'danger')
         return render_template('login.html', form=form)
 
     @app.route('/logout')
     @login_required
     def logout():
         logout_user()
+        flash('You have been logged out.', 'info')
         return redirect(url_for('login'))
+
+    @app.route('/profile', methods=['GET', 'POST'])
+    @login_required
+    def profile():
+        form = ProfileForm(obj=current_user)
+        if form.validate_on_submit():
+            current_user.username = form.username.data
+            if form.password.data:
+                current_user.set_password(form.password.data)
+            db.session.commit()
+            flash('Profile updated successfully!', 'success')
+            return redirect(url_for('profile'))
+        return render_template('profile.html', form=form)
 
     @app.route('/tasks', methods=['GET', 'POST'])
     @login_required
@@ -68,6 +83,7 @@ def create_app():
             )
             db.session.add(task)
             db.session.commit()
+            flash('Task added successfully!', 'success')
             return redirect(url_for('tasks'))
         tasks = Task.query.filter_by(user_id=current_user.id).all()
         return render_template('tasks.html', form=form, tasks=tasks)
@@ -77,9 +93,11 @@ def create_app():
     def toggle_task(task_id):
         task = Task.query.get_or_404(task_id)
         if task.user_id != current_user.id:
+            flash('You do not have permission to modify this task.', 'danger')
             return redirect(url_for('tasks'))
         task.completed = not task.completed
         db.session.commit()
+        flash('Task status updated.', 'success')
         return redirect(url_for('tasks'))
 
     @app.route('/delete_task/<int:task_id>', methods=['POST'])
@@ -87,9 +105,11 @@ def create_app():
     def delete_task(task_id):
         task = Task.query.get_or_404(task_id)
         if task.user_id != current_user.id:
+            flash('You do not have permission to delete this task.', 'danger')
             return redirect(url_for('tasks'))
         db.session.delete(task)
         db.session.commit()
+        flash('Task deleted.', 'success')
         return redirect(url_for('tasks'))
 
     @app.route('/edit_task/<int:task_id>', methods=['GET', 'POST'])
@@ -97,6 +117,7 @@ def create_app():
     def edit_task(task_id):
         task = Task.query.get_or_404(task_id)
         if task.user_id != current_user.id:
+            flash('You do not have permission to edit this task.', 'danger')
             return redirect(url_for('tasks'))
         form = TaskForm(obj=task)
         if form.validate_on_submit():
@@ -106,6 +127,7 @@ def create_app():
             task.priority = form.priority.data
             task.completed = form.completed.data
             db.session.commit()
+            flash('Task updated successfully!', 'success')
             return redirect(url_for('tasks'))
         return render_template('edit_task.html', form=form, task=task)
     

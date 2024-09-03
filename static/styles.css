@@ -121,3 +121,31 @@ li {
     color: black;
     font-size: 1.2em;
 }
+
+.alert-container {
+    position: fixed;
+    top: 70px; /* Adjust this value to ensure it does not overlap with the navbar */
+    right: 10px;
+    z-index: 1050;
+    width: 300px;
+}
+
+.alert {
+    background-color: #f8d7da; /* Default background color for alerts */
+    color: #721c24; /* Default text color for alerts */
+}
+
+.alert-success {
+    background-color: #d4edda; /* Background color for success alerts */
+    color: #155724; /* Text color for success alerts */
+}
+
+.alert-danger {
+    background-color: #f8d7da; /* Background color for danger alerts */
+    color: #721c24; /* Text color for danger alerts */
+}
+
+.alert-info {
+    background-color: #d1ecf1; /* Background color for info alerts */
+    color: #0c5460; /* Text color for info alerts */
+}
