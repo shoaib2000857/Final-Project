@@ -18,16 +18,16 @@
 
 ## Installation (For Local Instalation)
 1. Clone the repository:
-git clone <repository-url>
+`git clone <repository-url>`
 
 2. Navigate to the project directory:
-cd project-directory
+`cd project-directory`
 
-3. Install dependencies:
-pip install requirements.txt
+3. Install dependencies Also Run a VENV if you are not using the VENV configured with the files:
+`pip install requirements.txt`
 
 4. Start the application:
-python app.py
+`python app.py`
 
 
 ## Usage(For Local Instalation)
