@@ -1,4 +1,5 @@
-# Task Management and Timetable App
+# TaskMaster Pro
+## Task Management and Timetable App
 
 ## Description
 A web application that helps users schedule their tasks and manage their timetables. The app includes user authentication for a personalized experience.
